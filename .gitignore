@@ -1,0 +1,8 @@
+backup/
+bd/Guardies.db
+bd/Guardies.sqbpro
+bd/Guardies.db-journal
+import/import.csv
+.htaccess
+.htaccessWEB
+
