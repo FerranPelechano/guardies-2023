@@ -47,10 +47,12 @@ define("GESTIO_TITUL", "Gestió de camps extra");
 define("GESTIO_LABEL_MATERIA", "Materia");
 define("GESTIO_LABEL_GRUP", "Grup");
 define("GESTIO_LABEL_AULA", "Aula");
+define("GESTIO_LABEL_TIPUS", "Tipus");
 define("GESTIO_LABEL_SUBMIT", "Desar");
 define("GESTIO_ALERT_MATERIA", "Materia afegida: ");
 define("GESTIO_ALERT_GRUP", "Grup afegit: ");
 define("GESTIO_ALERT_AULA", "Aula afegida: ");
+define("GESTIO_ALERT_TIPUS", "Tipus afegit: ");
 //accio_importar_pregunta.php
 define("IMPORTAR_PREGUNTA_1", "El procés d'Importació de dades restablirà el programa a l'estat inicial!");
 define("IMPORTAR_PREGUNTA_2", "Ha arribat el moment... Executeu ordre 66!");

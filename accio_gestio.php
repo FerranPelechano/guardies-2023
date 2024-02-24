@@ -3,6 +3,7 @@
 $FinputMateria = $_POST['inputMateria'];
 $FinputGrup = $_POST['inputGrup'];
 $FinputAula = $_POST['inputAula'];
+$FinputTipus = $_POST['inputTipus'];
 //Crear noves entrades si no existien prèviament
 if($FinputMateria!=""){
     //Comprovar si existeix
@@ -29,6 +30,15 @@ if($FinputAula!=""){
         echo "<div class=\"alert alert-warning \">".GESTIO_ALERT_AULA.$FinputAula." </div>";
     }        
 }
+if($FinputTipus!=""){
+  //Comprovar si existeix
+  $temp = $db->count('Horari', array('@TIPUS'), array('TIPUS' => $FinputTipus));  
+  if($temp=="0"){
+      $db->insert("Horari", array('TIPUS' => $FinputTipus));		  	  
+      echo "<div class=\"alert alert-warning \">".GESTIO_ALERT_TIPUS.$FinputTipus." </div>";
+  }        
+}
+
 ?>
 <div class="container-fluid">     
 	<h4><?=GESTIO_TITUL;?></h4>
@@ -89,7 +99,26 @@ if($FinputAula!=""){
 	    		?>        
       		</select>              
 	  	</div>   
-		<div class="form-group">	  
+      <div class="form-group">
+      		<label for="labelProfes"><?=GESTIO_LABEL_TIPUS;?></label>
+      		<input class="form-control" id="inputTipus" name="inputTipus">
+            <select class="form-control" id="selectTipus" name="selectTipus" readonly>
+	    		<option value=""></option>                
+	    		<?php
+	    		$temps = $db->select('Horari', array('@TIPUS'), array('ORDER' => 'TIPUS'));  
+	    		foreach($temps as $temp){      				  
+	    		  $temp_element = $temp['TIPUS'];	  	  
+                  if($temp_element == $Faula){
+                    echo "<option value='".$temp_element."' selected>".$temp_element."</option>";
+                  }else{
+                    echo "<option value='".$temp_element."' >".$temp_element."</option>";
+                  }	    		  
+	    		}
+	    		?>        
+      		</select>              
+	  	</div> 
+
+      <div class="form-group">	  
 			<br>
 			<button type="submit" class="btn btn-primary"><?=GESTIO_LABEL_SUBMIT;?></button>	 
 		</div>
