@@ -1,9 +1,13 @@
 <?php if (!defined("VERSION")){ echo "No, no, no...";exit;}?>
+<?php
+$FidProfe = $_POST['selectProfes'];
+?>
+
 <div class="container-fluid">     
-	<h4><?=PROFESSOR_TITUL;?></h4>
-  	<form  id="FormProfe" method="post" action="index.php?accio=professor_crear">
+	<h4><?=PROFESSOR_TITUL_TAULA;?></h4>
+  	<form  id="FormProfe" method="post" action="index.php?accio=professor2">
     	<div class="form-group">
-      		<label for="labelProfes"><?=PROFESSOR_LABEL_PROFE;?></label>
+      		<label for="labelProfes"><?=PROFESSOR_LABEL_PROFE_VORE;?></label>
       		<select class="form-control" id="selectProfes" name="selectProfes" onchange="propaga(this)">
 	    		<option value=""></option>
 	    		<?php
@@ -28,28 +32,9 @@
 				}						
 			</script>	  
 	  	</div>
-		<div class="form-group">  
-    	    <label for="labelNouProfe"><?=PROFESSOR_LABEL_NOM;?></label>
-    	    <input type="text" class="form-control" id="inputNouProfe" name="inputNouProfe">
-		</div>		
-		<script> 
-			propaga(selectProfes);
-		</script>
-		<div class="form-group">  
-			<div class="form-check form-check">
-				<label for="labelChecks"><?=PROFESSOR_LABEL_EDITAR;?></label> 
-				<?php 
-				if ($Feditar == "on"){
-					?><input class="form-check-input" type="checkbox" id="editar" name="editar" value="editar" checked><?php
-				}else{
-					?><input class="form-check-input" type="checkbox" id="editar" name="editar" value="editar"><?php
-				}
-				?>
-			</div>
-		</div>
 		<div class="form-group">	  
 			<br>
-			<button type="submit" class="btn btn-primary"><?=PROFESSOR_LABEL_SUBMIT;?></button>	 
+			<button type="submit" class="btn btn-primary"><?=PROFESSOR_LABEL_SUBMIT_VORE;?></button>	 
 			<input type="hidden" id="idProfe" name="idProfe">
 		</div>
   	</form>
@@ -67,7 +52,7 @@ if ($FidProfe!=""){
 }
 ?>
 <div class="container-fluid">     
-	<h4><?=PROFESSOR_HORARI;?>: <?=$profe_nomprofe;?> (<?=$profe_id;?>) [<?=codi_validacio_control($profe_id);?>]  </h4> 
+	<h4><?=$profe_nomprofe;?></h4> 
 	<table class="table table-sm table-bordered table-striped">
 		<thead>
 			<tr>
@@ -97,7 +82,7 @@ if ($FidProfe!=""){
 						$temp_id=$temp['ID'];
 						$temp_idprofe=$temp['IDPROFESSOR'];
 						if ($temp['TIPUS']=='LEC'){
-							$aux .= $temp['MATERIA']." <br> ".$temp['GRUP']." (".$temp['AULA'].")";	
+							$aux .= $temp['MATERIA']." ".$temp['GRUP']." (".$temp['AULA'].")";	
 						}else{
 							$aux .= $temp['TIPUS']."";
 						}

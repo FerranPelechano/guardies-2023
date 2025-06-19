@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-define("VERSION","Guardies2 2023-12-06 Ferran Pelechano. Llicència Creative Commons BY-NC-SA. f.pelechanogarcia@edu.gva.es");
+define("VERSION","Guardies 2025-06-19 Ferran Pelechano. Llicència Creative Commons BY-NC-SA. f.pelechanogarcia@edu.gva.es");
 $idioma="ca"; 
 ?>
 <?php require_once "index_idioma_" . $idioma . ".php"; ?>

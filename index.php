@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-define("VERSION","Guardies2 2023-12-06 Ferran Pelechano. Llicència Creative Commons BY-NC-SA. f.pelechanogarcia@edu.gva.es");
+define("VERSION","Guardies 2025-06-19 Ferran Pelechano. Llicència Creative Commons BY-NC-SA. f.pelechanogarcia@edu.gva.es");
 $idioma="ca"; 
 ?>
 <?php require_once "index_idioma_" . $idioma . ".php"; ?>
@@ -40,6 +40,7 @@ $idioma="ca";
 	$data_menys7 = date('Y-m-d', strtotime("$data - 7 days"));
 	$alerta = "";
 	$refresca_script = true;
+	$lock_passat=false;
 	if ($data > date("Y-m-d")) {
 		$refresca_script = false;
 		$alerta = "<a class=\"btn btn-warning btn-sm\" role=\"button\" aria-disabled=\"true\">" . INDEX_FUTUR . "</a>";
@@ -47,6 +48,7 @@ $idioma="ca";
 	if ($data < date("Y-m-d")) {
 		$refresca_script = false;
 		$alerta = "<a class=\"btn btn-warning btn-sm\" role=\"button\" aria-disabled=\"true\">" . INDEX_PASSAT . "</a>";
+		$lock_passat=true;
 	}
 	//Obtenir data en format legible
 	$data_mostrar = data_en_cadena($data);
@@ -70,6 +72,14 @@ $idioma="ca";
 						<li><a class="dropdown-item" href="index.php?accio=reserves_llista"><?= INDEX_RESERVES_LLISTA; ?></a></
 					</ul>
 				</div>
+				<div class="btn-group">
+					<button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?= INDEX_MENU_USER; ?></button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="index.php?accio=edocent"><?= INDEX_EDOCENT; ?></a></li>
+						<li><a class="dropdown-item" href="index.php?accio=grup"><?= INDEX_GRUP; ?></a></li>
+						<li><a class="dropdown-item" href="index.php?accio=professor-vore"><?= INDEX_PROFESSOR; ?></a></li>						
+					</ul>
+				</div>							
 				<?php
 				//echo $username;
 				if ($username == $usuari_privilegiat) {
@@ -84,7 +94,9 @@ $idioma="ca";
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="index.php?accio=grup"><?= INDEX_GRUP; ?></a></li>
 							<li><a class="dropdown-item" href="index.php?accio=professor"><?= INDEX_PROFESSOR; ?></a></li>
+							<li><a class="dropdown-item" href="index.php?accio=professor2"><?= INDEX_PROFESSOR2; ?></a></li>
 							<li><a class="dropdown-item" href="index.php?accio=edocent"><?= INDEX_EDOCENT; ?></a></li>
+							<li><a class="dropdown-item" href="index.php?accio=edirectiu"><?= INDEX_EDIRECTIU; ?></a></li>
 							<li><a class="dropdown-item" href="index.php?accio=substitucio"><?= INDEX_SUBSTITUCIO; ?></a></li>							
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="index.php?accio=reserves_llista_completa"><?= INDEX_RESERVES_LLISTA; ?></a></li>
@@ -144,6 +156,9 @@ $idioma="ca";
 		case "reserves_llista":
 			require_once "accio_reserves_llista.php";
 			break;
+		case "professor-vore":			
+			require_once "accio_professor_vore.php";
+			break;			
 		//Accions d'usuari privilegiat
 		case "control_manual":
 			require_once "index_sense-permisos.php";
@@ -202,16 +217,21 @@ $idioma="ca";
 			require_once "accio_importar.php";
 			break;
 		case "grup":
-			require_once "index_sense-permisos.php";
 			require_once "accio_grup.php";
 			break;
 		case "edocent":
-			require_once "index_sense-permisos.php";
 			require_once "accio_edocent.php";
 			break;
-		case "professor":
+		case "edirectiu":
 			require_once "index_sense-permisos.php";
+			require_once "accio_edirectiu.php";
+			break;
+		case "professor":
 			require_once "accio_professor.php";
+			break;
+		case "professor2":
+				require_once "index_sense-permisos.php";
+				require_once "accio_professor2.php";
 			break;
 		case "professor_editar":
 			require_once "index_sense-permisos.php";

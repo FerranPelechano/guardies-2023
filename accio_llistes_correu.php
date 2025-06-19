@@ -42,7 +42,7 @@ foreach($llista_departament as $valor){
 }
 $cadena_dep.="</textarea>";
 //-----
-//----- Cocope + Tutories ESO BAT CF SEMI -----
+//----- Cocope + Tutories ESO BAT CF SEMI DIR -----
 //COCOPE
 $query = "SELECT * FROM Professor AS PRO WHERE COCOPE='on'ORDER BY PRO.NOM";
 $llista = $db->query($query)->fetchAll();
@@ -98,8 +98,19 @@ foreach($llista as $valor){
     if($valor['MAIL']!=""){$cadena_tutsemi.=$valor['MAIL'].",";}
 }
 $cadena_tutsemi.="</textarea>";
+//DIR
+$query = "SELECT * FROM Professor AS PRO WHERE DIR='on'ORDER BY PRO.NOM";
+$llista = $db->query($query)->fetchAll();
+$cadena_dir="";
+$cadena_dir.="<b>".LC_TAULA_11."</b> ";
+$cadena_dir.="<button class='btn btn-outline-secondary btn-sm' id='copy6' onclick=\"$('#tb6-').select();document.execCommand('copy');\">".LC_COPIAR."</button>";
+$cadena_dir.="<textarea class='form-control' id='tb6-' rows='1' readonly>";
+foreach($llista as $valor){
+    if($valor['MAIL']!=""){$cadena_dir.=$valor['MAIL'].",";}
+}
+$cadena_dir.="</textarea>";
 //Conformar resultat final
-$cadena_carrec=$cadena_cocope.$cadena_tuteso.$cadena_tutbat.$cadena_tutcf.$cadena_tutsemi;
+$cadena_carrec=$cadena_cocope.$cadena_tuteso.$cadena_tutbat.$cadena_tutcf.$cadena_tutsemi.$cadena_dir;
 //-----
 //----- Equips Docents (amb substituts i no titulars)-----
 $query="SELECT DISTINCT P.NOM, P.MAIL AS MAIL, H.GRUP, S.DE AS D, S.A AS A, P1.NOM, P1.MAIL AS MAIL2 FROM Horari AS H LEFT JOIN Professor AS P ON H.IDPROFESSOR = P.ID LEFT JOIN Substitucions AS S ON S.PROFE=P.ID LEFT JOIN Professor AS P1 ON S.SUBSTITUT=P1.ID WHERE H.GRUP<>'' ORDER BY H.GRUP, P.NOM";
@@ -150,7 +161,7 @@ foreach ($llista_docents as $docent){
     $cadena_taula.="<td>".$valor."</td>";
     if($docent['TUTSEMI']=="on"){$valor="X";}else{$valor="";}
     $cadena_taula.="<td>".$valor."</td>";
-    $cadena_taula.="<td>".$docent['DATA']."-".$config_intervals_hores[$docent['HORA']]."</td>";
+    $cadena_taula.="<td>".$docent['DATA']."-".$config_hores[$docent['HORA']]."</td>";
     $cadena_taula.="</tr>";
 }
 //-----

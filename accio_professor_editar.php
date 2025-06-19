@@ -5,8 +5,9 @@ $FidProfe = $_POST['selectProfes'];
 $Feditar = $_POST['editar'];
 //Fer update si estem en algun valor
 if ($Feditar!=""){						
-    $query = "UPDATE Professor SET NOM='".$_POST['inputNom']."', MAIL='".$_POST['inputMail']."', COCOPE='".$_POST['checkCCP']."', TUTESO='".$_POST['checkTUTESO']."', TUTBAT='".$_POST['checkTUTBAT']."', TUTCF='".$_POST['checkTUTCF']."', TUTSEMI='".$_POST['checkTUTSEMI']."', DEP='".$_POST['selectDep']."' WHERE ID=".$FidProfe;    
-    $profe_update = $db->query($query)->fetchAll();
+    $query = "UPDATE Professor SET NOM='".$_POST['inputNom']."', MAIL='".$_POST['inputMail']."', COCOPE='".$_POST['checkCCP']."', TUTESO='".$_POST['checkTUTESO']."', TUTBAT='".$_POST['checkTUTBAT']."', TUTCF='".$_POST['checkTUTCF']."', TUTSEMI='".$_POST['checkTUTSEMI']."', DEP='".$_POST['selectDep']."', DIR='".$_POST['checkDIR']."' WHERE ID=".$FidProfe;    
+    //echo $query;
+	$profe_update = $db->query($query)->fetchAll();
     $alerta="<div class='alert alert-success' role='alert'>".PROFESSOR_EDITAR_ALERTA."</div>";
 }
 //Mostrar valors del registre actual
@@ -74,6 +75,8 @@ if ($FidProfe!=""){
 			<input class="form-check-input" type="checkbox" id="checkTUTCF" name="checkTUTCF" <?php if ($profe_actual[0]['TUTCF']=='on'){ echo " checked ";}?>>
 			<label for="labelNouProfe"><?=PROFESSOR_EDITAR_LABEL_CHECK_TSEMI;?></label>    	    
 			<input class="form-check-input" type="checkbox" id="checkTUTSEMI" name="checkTUTSEMI" <?php if ($profe_actual[0]['TUTSEMI']=='on'){ echo " checked ";}?>>
+			<label for="labelNouProfe"><?=PROFESSOR_EDITAR_LABEL_CHECK_DIR;?></label>    	    
+			<input class="form-check-input" type="checkbox" id="checkDIR" name="checkDIR" <?php if ($profe_actual[0]['DIR']=='on'){ echo " checked ";}?>>		
 		</div>			
 		<div class="form-group">	  
 			<br>

@@ -371,12 +371,12 @@ if (strtotime($horaactual)>strtotime("14:00")){
 							echo "<div style=\"padding:1px;\">";
 							$cadena_link_pati="href=index.php?accio=assigna&data=".$data."&hora=".$hora."&idabsencia=".$u;							
 							switch ($u){
-								case "-1":$u_extra="Zona A Accés";break;
-								case "-2":$u_extra="Zona B Accés";break;
-								case "-3":$u_extra="Zona C Accés";break;
-								case "-4":$u_extra="Zona Pigmalió";break;
-								case "-5":$u_extra="Zona Cantina";break;
-								case "-6":$u_extra="Zona Gimnàs";break;
+								case "-1":$u_extra=MOSTRAR_PATI_1;break;
+								case "-2":$u_extra=MOSTRAR_PATI_2;break;
+								case "-3":$u_extra=MOSTRAR_PATI_3;break;
+								case "-4":$u_extra=MOSTRAR_PATI_4;break;
+								case "-5":$u_extra=MOSTRAR_PATI_5;break;
+								case "-6":$u_extra=MOSTRAR_PATI_6;break;
 							}
 							$textpati="Pati ".$u_extra;//constant(MOSTRAR_PATI_.$u*(-1));
 

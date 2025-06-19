@@ -11,7 +11,7 @@
 	$db->query("CREATE TABLE Guardia (ID INTEGER PRIMARY KEY AUTOINCREMENT, IDPROFESSOR INTEGER, DATA INTEGER, HORA INTEGER, COBERTAPER INTEGER, ACTIVITAT TEXT, OBSERVACIONS TEXT);");
 	if ($db->error) {echo "<span class=\"alert alert-danger\" role=\"alert\">".IMPORTAR_ERROR_GUARDIA."</span>";}
 	$db->drop("Professor");
-	$db->query("CREATE TABLE Professor (ID	INTEGER PRIMARY KEY AUTOINCREMENT,NOM TEXT,MAIL TEXT,TUTESO TEXT,TUTBAT TEXT,TUTCF TEXT,TUTSEMI TEXT,COCOPE TEXT, DEP TEXT);");
+	$db->query("CREATE TABLE Professor (ID	INTEGER PRIMARY KEY AUTOINCREMENT,NOM TEXT,MAIL TEXT,TUTESO TEXT,TUTBAT TEXT,TUTCF TEXT,TUTSEMI TEXT,COCOPE TEXT, DEP TEXT, DIR TEXT);");
 	if ($db->error) {echo "<span class=\"alert alert-danger\" role=\"alert\">".IMPORTAR_ERROR_PROFESSOR."</span>";}
 	$db->drop("Horari");
 	$db->query("CREATE TABLE Horari (ID INTEGER PRIMARY KEY AUTOINCREMENT, IDPROFESSOR INTEGER, DATA INTEGER, HORA INTEGER, MATERIA TEXT, GRUP TEXT, AULA TEXT, TIPUS TEXT);");
@@ -33,12 +33,12 @@
 	if ($db->error) {echo "<span class=\"alert alert-danger\" role=\"alert\">".IMPORTAR_ERROR_CONTROL."</span>";}
 
 	//----- IMPORTAR DADES DEL CSV -----	
-	//Si no existeix el default i fer la còpia
+	//Si no existeix, agafar el default i fer la còpia
 	if (!file_exists($config_csv_ruta)){
 		copy($config_csv_rutadefault, $config_csv_ruta);
 	}		
 	echo "<div class=\"alert alert-info\" role=\"alert\">".IMPORTAR_CSV." </div>";
-	$rows = array_map(function($row) { return str_getcsv($row, ';'); }, file('import/import.csv'));
+	$rows = array_map(function($row) { return str_getcsv($row, ';'); }, file(''.$config_csv_carpeta.'/import.csv'));
 	//----- CREATE PROFESSORS ----- Eliminar duplicats i ordenar
     echo "<div class=\"alert alert-info\" role=\"alert\">".IMPORTAR_PROFES."</div>";
 	$professors=[];	
@@ -53,6 +53,7 @@
 			//Apareix un valor duplicat sempre al final i cal llevar-lo. NO SE PQ APAREIX???
 		}else{
 			$db->insert("Professor", array('ID' => $i, 'NOM' => $row));															;
+			//echo $i." ".$row."<br>";
 		}
 		$i++;
 	}
@@ -70,19 +71,10 @@
 		$values=$values."'".$row[4]."', ";
 		$values=$values."'".$row[5]."', ";				
 		if ($row[6]==""){$values=$values."'G' ";}else{$values=$values."'".$row[6]."' ";}	//R1 i R2 s'importen sense TIPUS, cal afegir-lo ací	
-		//Apareix un valor del duplicat que cal eliminar
-		if ($i!=1){
-		  $db->query("INSERT INTO Horari (ID, IDPROFESSOR, DATA, HORA, MATERIA, GRUP, AULA, TIPUS) VALUES (".$values.");");
-		}
+		
+		$db->query("INSERT INTO Horari (ID, IDPROFESSOR, DATA, HORA, MATERIA, GRUP, AULA, TIPUS) VALUES (".$values.");");
+		//echo $i." ---> ".$values."<br>";
 		$i++;
-	}	
-
-	//Crear entrades per ubicacions sense docència per poder-les Reservar
-	/*
-	Ja es poden crear a partir de l'opció de Gestió de forma interna al programa
-	$db->query("INSERT INTO Horari (AULA) VALUES ('ESPAI PIGMALIO');");
-	$db->query("INSERT INTO Horari (AULA) VALUES ('B01 SALO ACTES');");
-	$db->query("INSERT INTO Horari (AULA) VALUES ('GIMNÀS');");
-	*/
+	}		
 	echo "<div class=\"alert alert-success\" role=\"alert\">".IMPORTAR_COMPLETAT."</div>";	
 ?>

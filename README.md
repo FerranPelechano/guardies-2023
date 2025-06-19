@@ -1,4 +1,4 @@
-# Gestió de Guardies/Reserves (Versió 2 - 2023-12-06)
+# Gestió de Guardies/Reserves (Versió 2025-06-19)
 Una aplicació web realitzada amb PHP per gestionar les Guardies docents i Reserves d'aulari/recursos d'un centre de Secundaria i FP.
 
 Està contextualitzat a l'IES Sant Vicent Ferrer d'Algemesí http://iessantvicent.com
@@ -23,6 +23,9 @@ Parteix d'un desenvolupament previ realitzat en Java per Jose Chamorro Molina (j
 3. Les franges horaries estan definides al fitxer index_config.php
 4. Es poden personalitzar les etiquetes d'idioma al fitxer index_idioma_ca.php o definir un altre index_idioma_XX.php i canviar en index.php la variable $idioma
 5. Les rutes de bd, backup i import així com els noms dels fitxers es poden personalitzar.
+
+## Gestió de Professorat
+Una vegada realitzada la importació inicial, es pot complementar la info del professorat en "Administrar-Gestió Professorat" per possibilitar la creació automàtica de les llistes de correu.
 
 ## Usuaris
 Cal utilitzar .htaccess a l'arrel, i un .htpasswd en la ruta definida per gestionar els usuaris que accedeixen al sistema. 
