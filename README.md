@@ -27,6 +27,9 @@ Parteix d'un desenvolupament previ realitzat en Java per Jose Chamorro Molina (j
 ## Gestió de Professorat
 Una vegada realitzada la importació inicial, es pot complementar la info del professorat en "Administrar-Gestió Professorat" per possibilitar la creació automàtica de les llistes de correu.
 
+## Personalitzacions en codi
+En accio_mostrar.php hi ha personalitzacions per mostrar botons de patis/consergeria o convivència en diferents franges que es poden configurar sobre el mateix codi (lin 347 endavant). 
+
 ## Usuaris
 Cal utilitzar .htaccess a l'arrel, i un .htpasswd en la ruta definida per gestionar els usuaris que accedeixen al sistema. 
 
