@@ -347,8 +347,9 @@ if (strtotime($horaactual)>strtotime("14:00")){
 	  				//------------- BOTO DE CONVIVENCIA
 					$cadena_link_convi="href=index.php?accio=assigna&data=".$data."&hora=".$hora."&idabsencia=0";
 	  				echo "<div style=\"padding:1px;\">";
-      				if ($hora=="R1" || $hora=="R3" || ($hora=="R2" && $dia=="M") || ($hora=="R2" && $dia=="X") || ($hora=="R2" && $dia=="V") ){
+      				if ($hora=="10" || $hora=="R1" || $hora=="R3" || ($hora=="R2" && $dia=="M") || ($hora=="R2" && $dia=="X") || ($hora=="R2" && $dia=="V") ){
 						//Els patis no tenen convivència pero L i J sí, perquè tenim alumnes castigats
+						//En hora 10 tenim Consergeria en compte de Convivència
 						
 					}else{
 						echo "<a ".$cadena_link_convi." class=\"btn btn-secondary btn-sm\" role=\"button\" aria-disabled=\"true\">".MOSTRAR_CONVIVENCIA."</a>";			  	  
@@ -378,7 +379,7 @@ if (strtotime($horaactual)>strtotime("14:00")){
 								case "-5":$u_extra=MOSTRAR_PATI_5;break;
 								case "-6":$u_extra=MOSTRAR_PATI_6;break;
 							}
-							$textpati="Pati ".$u_extra;//constant(MOSTRAR_PATI_.$u*(-1));
+							$textpati="".$u_extra;
 
 							echo "<a ".$cadena_link_pati." class=\"btn btn-secondary btn-sm\" role=\"button\" aria-disabled=\"true\">".$textpati."</a>";
 							$patis = $db->select(
@@ -397,6 +398,34 @@ if (strtotime($horaactual)>strtotime("14:00")){
 						}						
 					  }		
 	  				//--------------
+					//------------- BOTO DE CONSERGERIA							
+      				if ($hora=="10"){
+						for ($u=-7;$u>=-7;$u--){							
+							echo "<div style=\"padding:1px;\">";
+							$cadena_link_pati="href=index.php?accio=assigna&data=".$data."&hora=".$hora."&idabsencia=".$u;							
+							switch ($u){
+								case "-7":$u_extra=MOSTRAR_PATI_7;break;
+							}
+							$textpati="".$u_extra;
+
+							echo "<a ".$cadena_link_pati." class=\"btn btn-secondary btn-sm\" role=\"button\" aria-disabled=\"true\">".$textpati."</a>";
+							$consergeria = $db->select(
+								'Guardia',['[>]Professor(P1)' => ['COBERTAPER' => 'ID'],'[>]Professor(P2)' => ['IDPROFESSOR' => 'ID']],
+								array('Guardia.ID','Guardia.IDPROFESSOR','Guardia.DATA','Guardia.HORA','Guardia.OBSERVACIONS','Guardia.COBERTAPER','Guardia.ACTIVITAT','P1.NOM','P2.NOM(NOM1)'),
+							  array('AND' => array('ACTIVITAT'=>''.$u.'', 'DATA' => ''.$data.'', 'HORA'=>''.$hora.''))
+							);	  							
+						  foreach ($consergeria as $patis_element){
+							$patis_cobertaper = $patis_element['COBERTAPER'];
+							$patis_cobertaper_nom = $patis_element['NOM'];
+							if ($patis_cobertaper!=""){
+							  echo " <a class=\"btn btn-outline-success btn-sm\" role=\"button\" aria-disabled=\"true\">".$patis_cobertaper_nom."</a>";			
+							}	 
+						  }								
+							echo "</div>";
+						}						
+					  }		
+	  				//--------------					
+					
 					echo "</div></td>";
 	   				/* -------------------------- */
 					/* ----- COLUMNA4 NOTES ----- */

@@ -142,6 +142,7 @@ define("MOSTRAR_PATI_3", "Pati Zona C1");
 define("MOSTRAR_PATI_4", "Pati Zona Pigmalió");
 define("MOSTRAR_PATI_5", "Pati Zona Cantina");
 define("MOSTRAR_PATI_6", "Pati Zona Gimnàs");
+define("MOSTRAR_PATI_7", "Consergeria");
 //accio_notes.php
 define("NOTES_TITUL", "Introduïr observacions");
 define("NOTES_A_LES", "a les");
