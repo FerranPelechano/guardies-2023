@@ -37,7 +37,8 @@ if ($FGrup==""){$FGrup="¿?";}
                         if($temp['CONTEO_OCUPACIO']==0) {             
                             //$aux.=$temp['AULA'];      
                             if($temp['CONTEO_RESERVES']>0) {   
-                                $aux.=" <a href='index.php?&accio=reserves_llista&filtro_aula=".$temp['AULA']."'>";
+                                //$aux.=" <a href='index.php?&accio=reserves_llista&filtro_aula=".$temp['AULA']."'>";
+								$aux.=" <a href='index.php?&accio=reserves&data=".date("Y-m-d")."&selectAula=".$temp['AULA']."'>";
                                 $aux .="<button type=\"button\" class=\"btn btn-outline-danger btn-sm\" title=\"".$temp['CONTEO_RESERVES']."\">".$temp['AULA']." (".AULES_RESERVADA.")</button>";                            
                                 $aux.="</a>";
                             }else{
